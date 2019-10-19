@@ -1,5 +1,5 @@
-class ThermoStatSerializer < ResourceSerializer
+class ThermostatSerializer < ResourceSerializer
   attributes :household_token, :location
 
-  belongs_to :reading
+  has_many :readings
 end
