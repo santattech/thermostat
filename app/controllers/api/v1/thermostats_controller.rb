@@ -20,7 +20,6 @@ class Api::V1::ThermostatsController < Api::V1::BaseController
         reading = thermostat.readings.create(tracking_number: count + 1)
 
         if reading.persisted?
-          #hash = { temp: params[:temperature], humidity: params[:humidity], battery_charge: params[:battery_charge] }
           redis = Redis.new(host: 'localhost', port: 6379)
           redis.set("t-#{reading.id}", params[:temperature])
           redis.set("h-#{reading.id}", params[:humidity])
@@ -34,6 +33,23 @@ class Api::V1::ThermostatsController < Api::V1::BaseController
       else
         render_json_error(:not_found, message: "Thermostat not found")
       end
+    end
+  end
+
+  def stats
+    if @current_thermo
+      readings = @current_thermo.readings
+      max_humidity = readings.map(&:humidity).compact.max
+      min_humidity = readings.map(&:humidity).compact.min
+
+      max_t = readings.map(&:temperature).compact.max
+      min_t = readings.map(&:temperature).compact.min
+
+      max_b = readings.map(&:battery_charge).compact.max
+      min_b = readings.map(&:battery_charge).compact.min
+      render status: :ok, json: json_api_serializer_response(@current_thermo, meta: { max_temperature: max_t, min_temperature: min_t, max_battery_charge: max_b, min_battery_charge: min_b, max_humidity: max_humidity, min_humidity: min_humidity })
+    else
+      render_json_error(:not_found, message: "Thermostat not found")
     end
   end
 end
