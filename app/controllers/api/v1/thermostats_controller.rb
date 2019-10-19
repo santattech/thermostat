@@ -39,15 +39,22 @@ class Api::V1::ThermostatsController < Api::V1::BaseController
   def stats
     if @current_thermo
       readings = @current_thermo.readings
-      max_humidity = readings.map(&:humidity).compact.max
-      min_humidity = readings.map(&:humidity).compact.min
+      humid_array = readings.map{ |r| r.humid.to_f }
+      max_humidity = humid_array.max
+      min_humidity = humid_array.min
+      avg_humid = humid_array.inject{ |sum, el| sum + el }.to_f / humid_array.size
 
-      max_t = readings.map(&:temperature).compact.max
-      min_t = readings.map(&:temperature).compact.min
+      temp_array = readings.map{|r| r.temperature.to_f }
+      max_t = temp_array.max
+      min_t = temp_array.min
+      avg_temp = temp_array.inject{ |sum, el| sum + el }.to_f / temp_array.size
 
-      max_b = readings.map(&:battery_charge).compact.max
-      min_b = readings.map(&:battery_charge).compact.min
-      render status: :ok, json: json_api_serializer_response(@current_thermo, meta: { max_temperature: max_t, min_temperature: min_t, max_battery_charge: max_b, min_battery_charge: min_b, max_humidity: max_humidity, min_humidity: min_humidity })
+      battery_array = readings.map{|r| r.battery_charge.to_f }
+      max_b = battery_array.max
+      min_b = battery_array.min
+      avg_b = battery_array.inject{ |sum, el| sum + el }.to_f / battery_array.size
+
+      render status: :ok, json: json_api_serializer_response(@current_thermo, meta: { max_temperature: max_t, min_temperature: min_t, average_temperature: avg_temp, max_battery_charge: max_b, min_battery_charge: min_b, average_battery: avg_b, max_humidity: max_humidity, min_humidity: min_humidity, average_humidity: avg_humid })
     else
       render_json_error(:not_found, message: "Thermostat not found")
     end
