@@ -4,16 +4,12 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.3'
 gem 'bootsnap', require: false
 gem 'listen', '~> 3.0'
-gem 'logstash-logger', '0.26.1'
-#gem 'logstash-event', '1.2.02'
+gem 'fast_jsonapi', '1.5'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.2.2'
-gem 'aws-sdk-autoscaling'#, '3.0.1'
-gem "aws-sdk-ec2"
-gem "aws-sdk-dynamodb"
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'progress_bar', '1.3.0'
 # Use Puma as the app server
 gem 'puma', '4.0.0'
 gem 'sentry-raven', '2.9.0'
@@ -56,7 +52,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'whenever', '1.0.0', require: false
 
 group :development do
   #for cap deploy

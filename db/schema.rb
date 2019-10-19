@@ -27,9 +27,10 @@ ActiveRecord::Schema.define(version: 2019_10_19_010830) do
 
   create_table "thermostats", force: :cascade do |t|
     t.string "household_token"
-    t.text "address"
+    t.text "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["household_token"], name: "index_thermostats_on_household_token", unique: true
   end
 
   add_foreign_key "readings", "thermostats"
