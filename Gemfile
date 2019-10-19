@@ -35,7 +35,7 @@ group :development, :test do
   gem 'factory_bot', '4.11.1'
 end
 
-group :development, :test, :staging do
+group :development, :test do
   gem 'pry', '0.12.2'
 end
 
@@ -47,24 +47,7 @@ group :test do
   gem 'rspec_junit_formatter', '0.4.1'
   gem 'rspec-collection_matchers', '1.1.3'
   gem 'shoulda-matchers', '~> 3.1.2'
-  gem 'simplecov', '0.16.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-group :development do
-  #for cap deploy
-  gem 'capistrano', '3.11.0'
-  gem 'capistrano3-puma', '4.0.0'
-  gem 'capistrano-db-tasks', '~> 0.6', require: false
-  gem 'capistrano-rails', require: false
-  gem 'capistrano-rails-console', '~> 2.3', require: false
-  gem 'capistrano-rails-db', '0.0.2'
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano-rake', require: false
-  gem 'capistrano-rvm', '0.1.2'
-  gem 'capistrano-secrets-yml', '~> 1.1.0'
-  gem 'capistrano-sidekiq'#, github: 'seuros/capistrano-sidekiq'
-  gem 'net-ssh', '4.2.0'
-end

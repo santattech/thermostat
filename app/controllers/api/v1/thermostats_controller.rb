@@ -44,12 +44,12 @@ class Api::V1::ThermostatsController < Api::V1::BaseController
       min_humidity = humid_array.min
       avg_humid = humid_array.inject{ |sum, el| sum + el }.to_f / humid_array.size
 
-      temp_array = readings.map{|r| r.temperature.to_f }
+      temp_array = readings.map{|r| r.temp.to_f }
       max_t = temp_array.max
       min_t = temp_array.min
       avg_temp = temp_array.inject{ |sum, el| sum + el }.to_f / temp_array.size
 
-      battery_array = readings.map{|r| r.battery_charge.to_f }
+      battery_array = readings.map{|r| r.battery.to_f }
       max_b = battery_array.max
       min_b = battery_array.min
       avg_b = battery_array.inject{ |sum, el| sum + el }.to_f / battery_array.size
