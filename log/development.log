@@ -1,0 +1,61 @@
+  [1m[35m (2381.9ms)[0m  [1m[35mCREATE DATABASE "thermo_dev" ENCODING = 'unicode'[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (985.4ms)[0m  [1m[35mCREATE DATABASE "thermo_test" ENCODING = 'unicode'[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (175.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (111.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (22.9ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6967226905243688790)[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+Migrating to CreateThermostats (20191019010621)
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (85.7ms)[0m  [1m[35mCREATE TABLE "thermostats" ("id" bigserial primary key, "household_token" character varying, "address" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/migrate/20191019010621_create_thermostats.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20191019010621"]]
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (12.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Create (0.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2019-10-19 01:07:47.594168"], ["updated_at", "2019-10-19 01:07:47.594168"]]
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (5.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(6967226905243688790)[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6967226905243688790)[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+Migrating to CreateReadings (20191019010830)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (86.4ms)[0m  [1m[35mCREATE TABLE "readings" ("id" bigserial primary key, "thermostat_id" integer, "tracking_number" integer, "temperature" decimal, "humidity" decimal, "battery_charge" decimal, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/migrate/20191019010830_create_readings.rb:3
+  [1m[35m (4.8ms)[0m  [1m[35mALTER TABLE "readings" ADD CONSTRAINT "fk_rails_7c067bcadb"
+FOREIGN KEY ("thermostat_id")
+  REFERENCES "thermostats" ("id")
+[0m
+  ↳ db/migrate/20191019010830_create_readings.rb:12
+  [1m[36mActiveRecord::SchemaMigration Create (1.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20191019010830"]]
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (10.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT pg_advisory_unlock(6967226905243688790)[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /home/santanu/.rvm/gems/ruby-2.5.3@parking_data_mnd/bin/rake:23
