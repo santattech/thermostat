@@ -18,11 +18,11 @@ This project currently works with:
   * rake db:migrate
   * rake db:seed # to store dummy data
 
-* Running development env:
+#### Running development env:
   * cd thermo
   * rails s
 
-* Running test env:
+#### Running test env:
   * rake db:schema:load RAILS_ENV=test
   * rspec spec/
 
